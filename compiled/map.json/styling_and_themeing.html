@@ -1,0 +1,255 @@
+<section data-type="chapter" id="styling-and-theming-8qkS6">
+<h1 id="stylingandtheming">Styling and Theming</h1>
+
+<p>A theme is a collection of designs used to style every output format of a book. For example, a single theme would include designs for a PDF, an EPUB (the format for the iPad, Nook, etc.), a MOBI (the format for the Kindle), and an HTML website. Each of these designs would have a consistent look and feel, but with slight modifications to optimize the design for the output format. (Read more about styling each format in the following sections.)</p>
+
+<p>All of the Atlas output formats (PDF, EPUB, MOBI, and HTML) are powered by CSS, the standard styling language for the Web. You can write <a data-original-title="" href="#cssthemes" title="">an entirely new theme using CSS</a>, that can be used for multiple projects, by multiple people, or you can just add <a data-original-title="" href="#csscustomizations" title="">CSS customizations</a> for your specific project.</p>
+
+<div data-type="note" id="note-QLATL"><h6>Note</h6>
+<h1>Note</h1>
+
+<p>This documentation is not a comprehensive guide on how to write CSS, but rather how to set up CSS files to work with Atlas. For an overview of using CSS in publishing, see <a data-type="xref" href="#css-primer">#css-primer</a>. Additionally, there are lots of resources online to get you started with learning CSS, and of course O'Reilly has <a data-original-title="" href="http://shop.oreilly.com/category/browse-subjects/web-development/html-css.do" title="">many books on the subject</a>.</p>
+</div>
+
+<section data-type="sect1" id="cssthemes">
+<h1>Themes</h1>
+
+<p>Atlas uses themes to style projects. Each theme is built with CSS and split into 4 pieces, for each of the different output formats: PDF, EPUB, MOBI, and HTML. Atlas has two default themes built in: <a data-original-title="" href="https://github.com/oreillymedia/atlas_trade_theme" title="">Trade</a> and <a data-original-title="" href="https://github.com/oreillymedia/atlas_tech1c_theme" title="">Technical</a>. Feel free to use these themes as examples when creating your new design.</p>
+
+<section data-type="sect2" id="creatingthemes">
+<h2>Creating a New Theme</h2>
+
+<p>Every new theme should include the following:</p>
+
+<ul>
+	<li>CSS to style the ebook and print PDFs</li>
+	<li>CSS to style the EPUB</li>
+	<li>CSS to style the MOBI (Kindle file format)</li>
+	<li>CSS to style an HTML website</li>
+	<li>An HTML file to add any extra header information or layout elements to the HTML website (optional)</li>
+	<li>Downloadable sample files for each format (optional)</li>
+</ul>
+
+<p>Every theme should live in its own Atlas repository, and you can create this theme repository the same way you create a new project. Click the "New Project" button on the Projects page, give your repository a name, and then in the Templates section, click "Advanced" and choose "Theme". This will pre-populate your theme repository with all the necessary folders and blank CSS files for each format.</p>
+
+<div data-type="note" id="note-Bdlca"><h6>Note</h6>
+<h1>Note</h1>
+
+<p>You can also create a public theme on GitHub for use in Atlas.&nbsp;</p>
+</div>
+
+<p>Atlas expects themes to use a specific file structure, so if you aren't creating the theme via Atlas (as described above), then you'll need to make sure to set your theme up accordingly, as shown in the figure below.</p>
+
+<figure id="id-87ZI5"><img class="iassetsimagescss-themes-01png" src="images/css-themes-01.png">
+<figcaption>The file structure for Atlas themes.</figcaption>
+</figure>
+</section>
+
+<section data-type="sect2" id="styling-for-pdf-output-gM2T4">
+<h2>Styling for PDF Output</h2>
+
+<p>Atlas combines CSS with PDF processing software to create PDFs suitable for digital reading or professional printed books.</p>
+
+<div data-type="note" id="note-BNXua"><h6>Note</h6>
+<h1>Note</h1>
+
+<p>The specific PDF processing software we use is called Antenna House—you can read the documentation about Antenna House <a href="http://www.antennahouse.com/product/ahf60/docs/index.html">here</a>.</p>
+</div>
+
+<p>Creating a PDF with CSS relies on the <a data-original-title="" href="http://www.w3.org/TR/css3-page/" title="">Paged Media module</a>. For a primer on writing CSS for PDFs, see&nbsp;<a data-type="xref" href="#css-primer">#css-primer</a>, read <a data-original-title="" href="http://alistapart.com/article/building-books-with-css3" title="">"Building Books with CSS 3"</a> on A List Apart, or <a data-original-title="" href="http://chimera.labs.oreilly.com/books/1234000001694" title="">watch the presentation here</a>.</p>
+</section>
+
+<section data-type="sect2" id="styling-for-epub-output-ipad-nook-etc.-VKKC6">
+<h2>Styling for EPUB Output (iPad, Nook, etc.)</h2>
+
+<p>Right now, the EPUB format is largely targeted at continuous, linear reading—creating more intricately-laid out files is fairly difficult, and getting these files to work on all the different eReading devices is even harder. There are a wide range of devices used to display EPUB files—the iPad, Sony Reader, and Nook, to name a few—and each of these devices offers a different level of support for CSS properties and selectors. Because of this, we advise you not to get too complex when styling for EPUB output. Here are a few CSS tips to get your EPUB files to display correctly, on all devices:</p>
+
+<ul>
+	<li>Keep all text in a single column</li>
+	<li>Don't rely on floats or absolute positioning</li>
+	<li>Page margins are off-limits on most devices</li>
+	<li>Not all devices render background colors or borders</li>
+	<li>Not all devices support less-common text styles (like text-transform)</li>
+</ul>
+
+<p>It's a good idea to test your EPUB styles on all devices that you think your readers might use, if you can. The easiest way to test is simply to create an EPUB file using your CSS, and see how that file looks on each device.</p>
+</section>
+
+<section data-type="sect2" id="styling-for-mobi-output-kindle-lwNHn">
+<h2>Styling for MOBI Output (Kindle)</h2>
+
+<p>Designing for Kindle is very similar to designing for EPUB: most new Kindle devices can render CSS and HTML quite well—on the same level as EPUB readers. This means that you can generally use the same CSS styles for both your MOBI and EPUB formats.</p>
+
+<p>However, there are still a lot of older Kindle devices in use (like the Kindle Keyboard). These devices have much more limited support for CSS styles, so it's generally a good idea to add an extra section of basic fallback styles for these devices, inside a media query, as shown in the following example.</p>
+
+<pre class="prettyprint" data-code-language="css" data-executable="" data-original-title="" title="">
+ @media amzn-mobi {
+
+  h1 {
+    font-family: serif;
+    font-size: 200%;
+  }
+
+  h2 {
+    font-family: serif;
+    font-size: 150%;
+  }
+
+  h3 {
+    font-family: serif;
+    font-size: 125%;
+  }
+
+  h4 {
+    font-family: serif;
+    font-size: 120%;
+  }
+}
+</pre>
+
+<div data-type="note" id="note-oYeUJ"><h6>Note</h6>
+<h1>Note</h1>
+
+<p>If you don't want to add extra fallback styles for older Kindle devices, don't worry—we'll add some default styles for you if we don't see the media query in your mobi.css file.</p>
+</div>
+
+<aside data-type="sidebar" id="reusing-css-styles-for-multiple-formats-RJetM">
+<h5>Reusing CSS Styles for Multiple Formats</h5>
+
+<p>You can use <code>@import</code> rules within your theme repository, to make maintaining CSS styles easier. For example, if you want your EPUB and MOBI files to look exactly the same, you can import the EPUB stylesheet into the MOBI stylesheet, and then you only need to keep one CSS file up-to-date if you ever decide to make any changes.</p>
+
+<p>When importing styles within your theme folder, use relative paths to point to the file you want to reuse. For example, you might do the following in your <code>mobi.css</code> file:</p>
+
+<pre class="prettyprint" data-code-language="css" data-executable="" data-original-title="" title="">
+ @import url('../epub/epub.css');
+ 
+ @media amzn-mobi {
+   h1 {
+     font-size: 120%;
+   }
+ }
+ </pre>
+</aside>
+</section>
+
+<section data-type="sect2" id="styling-for-html-output-9Z5Sm">
+<h2>Styling for HTML Output</h2>
+
+<p>Atlas comes with an option to export your project as a fully-functional website that you can upload to the server of your choice. When you build the project, you'll receive a zip of the project files, CSS, images, and any custom JavaScripts or other assets you've chosen to include, as discussed in <a href="#javascripts">Custom Javascripts</a>.</p>
+
+<div data-type="note" id="note-2vaUJ"><h6>Note</h6>
+<h1>Note</h1>
+
+<p>To learn more about the different build options for exporting your project as a website, read <a data-original-title="" href="#building" title="">the documentation here.</a></p>
+</div>
+
+<p>Writing CSS for HTML output is fairly straightforward—just style things as you would for the Web. We encourage you to consider including navigation elements, a header, and other standard website features to your HTML theme, so that the end result is a fully-functional, beautiful website.</p>
+
+<section data-type="sect3" id="htmllayout">
+<h3>The HTML layout file</h3>
+
+<p>In order to make a functional website, each file that you create in Atlas gets wrapped in a layout file that adds header information, links to JavaScripts and CSS files, and standard HTML wrapper tags. All Atlas projects will use a default <code>layout.html</code> file, but you can also create a custom layout file for your theme. For example, if you want to add a top navigation bar or extra navigation links before or after the book content.</p>
+
+<p>If you choose to create your own layout file, simply create a file called <code>layout.html</code> and save it in the <code>html</code> folder in your theme repo alongside your <code>html.css</code> file. Your <code>layout.html</code> file must include some standard elements in order for it to work correctly with Atlas, but you can add any extra stuff in addition to those required elements.</p>
+
+<div data-type="note" id="note-93EFq"><h6>Note</h6>
+<h1>Note</h1>
+
+<p>Remember that anything you add to the <code>layout.html</code> file will appear on <em>every</em> page of your project website.</p>
+</div>
+
+<p>Here's the boilerplate stuff that needs to be in any layout.html file:</p>
+
+<pre class="prettyprint" data-code-language="html" data-executable="" data-original-title="" title="">
+{{ doctype }}
+&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;title&gt;{{ title }}&lt;/title&gt;
+    {{ header }}
+  &lt;/head&gt;
+  &lt;body data-type="book"&gt;
+    {{ content }}
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p>You can see in the above code block that Atlas <code>layout.html</code> files use a mix of variables and HTML. Read up on variables in <a data-original-title="" href="#" title="">Includes</a>. To see an example of a customized <code>layout.html</code> file, check out the <a href="https://github.com/oreillymedia/atlas_trade_theme/blob/master/html/layout.html">Atlas Trade Theme</a>.</p>
+</section>
+</section>
+</section>
+
+<section data-type="sect1" id="csscustomizations">
+<h1>Customizing Your Project Styles</h1>
+
+<p>Sometimes you don't need or want to create a whole new theme—you may want to keep most of the design the same, but have the text flow in 2 columns in the PDF instead of 1, or add a custom style for special boxes that you're adding to your book that aren't part of one of the available themes. By using our override architecture, you can customize your project design without needing to define styles for every single element.</p>
+
+<p>Every Atlas project includes a <code>theme</code> folder where you can add custom CSS to override the theme styles or to create new styles for custom elements you want to add just to your project.</p>
+
+<section data-type="sect2" id="how-to-do-it-PzNtY">
+<h2>How to Do It</h2>
+
+<p>The Build system looks for CSS overrides in a <code>theme</code> folder within your project repository. The structure of the theme folder should look just like the structure of an actual theme:</p>
+
+<figure id="id-Mr3hM"><img class="iassetsimagestheme-01png" src="images/css_theme_overrides.png">
+<figcaption>File structure for theme overrides within a single project.</figcaption>
+</figure>
+
+<p>All of these files are optional—you only need to include them if you want to add custom styles or overrides for each format. You can also add a custom <code>layout.html</code> file just for your project if you're exporting it for the Web. Read about HTML layout files above (see <a data-original-title="" href="#htmllayout" title="">The HTML layout file</a>).</p>
+</section>
+
+<section data-type="sect2" id="advanced-styling-for-html-output-Gv9CA">
+<h2>Advanced Styling for HTML Output</h2>
+
+<p>The HTML format offers more opportunity for interaction and styling than PDF and other ebook formats. When building for HTML output, you may specify other stylesheets in the <code>atlas.json</code> file as well as custom javascripts to be included in the <code>head</code> of every page. More documentation these settings can be found in the <a data-original-title="" href="#html-format-options" title="">atlas.json HTML Format Section</a>.</p>
+</section>
+</section>
+
+<section data-type="sect1" id="css-primer">
+<h1>CSS Primer</h1>
+
+<p>This section includes all four parts of the CSS for Print screencast series by Nellie McKesson. Learn the basics of CSS and how to use it to design PDF output from Atlas.</p>
+
+<section data-type="sect2" id="introduction-to-html-and-css-Eb7cn">
+<h2>Introduction to HTML and CSS</h2>
+
+<div><iframe allowfullscreen frameborder="0" height="315" src="//www.youtube.com/embed/OZeoiotzPFg?list=UU3BGlwmI-Vk6PWyMt15dKGw" width="560"></iframe></div>
+</section>
+
+<section data-type="sect2" id="basic-layout-and-text-formatting-OlEi6">
+<h2>Basic Layout and Text Formatting</h2>
+
+<div><iframe allowfullscreen frameborder="0" height="315" src="//www.youtube.com/embed/yyqvXhu-HOc?list=UU3BGlwmI-Vk6PWyMt15dKGw" width="560"></iframe></div>
+</section>
+
+<section data-type="sect2" id="paged-media-basics-5DYuq">
+<h2>Paged Media Basics</h2>
+
+<div><iframe allowfullscreen frameborder="0" height="315" src="//www.youtube.com/embed/P-bDFt2wZDA?list=UU3BGlwmI-Vk6PWyMt15dKGw" width="560"></iframe></div>
+</section>
+
+<section data-type="sect2" id="generated-content-counters-andamp-strings-zdzuR">
+<h2>Generated Content - Counters &amp; Strings</h2>
+
+<div><iframe allowfullscreen frameborder="0" height="315" src="//www.youtube.com/embed/mTgxZmOpJls?list=UU3BGlwmI-Vk6PWyMt15dKGw" width="560"></iframe></div>
+</section>
+</section>
+
+<section data-type="sect1" id="page-and-line-breaks-for-pdf-output-xxWiW">
+<h1>Page and Line Breaks for PDF Output</h1>
+
+<p>Line breaks and page breaks for PDF output can be configured in two different fashions with Atlas.</p>
+
+<p>Primarily, properties to define global rules on how line breaks and page breaks should be handled throughout the book can be set within the CSS theme. For example, designers can use the CSS <code><a data-original-title="" href="http://www.w3.org/TR/css3-text/#hyphens-property" title="">hyphens</a></code> property to define how hyphenation should be implemented across line breaks. Similarly, they can take advantage of CSS’s <code><a data-original-title="" href="http://www.w3.org/TR/CSS21/page.html#page-break-props" title="">page-break</a></code> properties, as well as its <a data-original-title="" href="http://www.w3.org/TR/CSS21/page.html#break-inside" title=""><code>orphans</code> and <code>widows</code></a> properties to set page breaking rules across the whole book (e.g., “Make sure there’s always a page break before a figure image and that there are at minimum two lines of a paragraph at the bottom and top of each page”).</p>
+
+<p>Additionally, Atlas allows typesetters to calibrate individual page breaks on a case-by-case basis by adding corresponding markup attributes in the HTML (e.g., “Insert a hard page break right before Table 3-1”).</p>
+
+<p>If you're using one of the default Atlas themes, or a theme that we've helped you create, you can force a PDF page break by applying one of the following classes to an element via the code editor:</p>
+
+<ul>
+	<li><code>class="pagebreak-before"</code></li>
+	<li><code>class="pagebreak-after"</code></li>
+</ul>
+
+<p>If you're using a custom theme and would like help implementing this behavior, please contact us directly.</p>
+</section>
+</section>

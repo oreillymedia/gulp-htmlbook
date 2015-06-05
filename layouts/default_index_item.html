@@ -1,0 +1,12 @@
+<li>
+  
+  <span data-type="index-term">{{title | escape}}</span>{% for term in terms %}, <a data-type="index:locator" href="{{ term.link }}">{{term.title | escape }}</a>{% endfor %}
+
+  {% if children %}
+  <ul>
+  {% for subchild in children %}
+    {% include default_index_item.html with subchild %}
+  {% endfor %}
+  </ul>
+  {% endif %}
+</li>

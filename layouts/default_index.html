@@ -1,0 +1,15 @@
+<section data-type="index">
+  <h1>Index</h1>
+  <div data-type="index">
+    {% for item in indexed %}
+    <div data-type="indexdiv">
+        <h3>{{item.title}}</h3>
+        <ul>
+        {% for child in item.children %}
+          {% include default_index_item.html with child %}
+        {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</section>
+            

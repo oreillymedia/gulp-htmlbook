@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <title> - </title>
+    
+  </head>
+  <body data-type="book">
+    
+
+    <section data-type="chapter" id="atlas-json">
+<h1>atlas.json</h1>
+
+<p>The Atlas build system uses a JSON file called <code>atlas.json</code> to save build settings for a particular project. This file lives in the root of each project and is required to trigger a successful build. If this sounds scary to you, don't worry: Atlas will create this file for you the first time you build, and will write to this file every time you change your build settings in the UI, so you don't ever have to look at this file if you don't want to.</p>
+
+<p>But if you're a more hands-on type, or if you're going to be building a lot <a href="#atlas-api">via the API</a>, then you can edit <code>atlas.json</code> manually, which makes it possible to change any of your build settings without ever using the UI. The <code>atlas.json</code> file is under version control in your GitHub repo, which means that you can have different settings per branch, or even build your book from any point in your Git history.</p>
+
+<p>The following is a list of attributes you can use.</p>
+
+<section data-type="sect1" id="required-fields-0ORHA">
+<h1>Required Fields</h1>
+
+<section data-type="sect2" id="files-2J6FJ">
+<h2>Files</h2>
+
+<p>The only required attribute is <code>files</code>, which is an array listing the files to build in the order you'd like them sequenced in your book. All of these files need to exist in the repository and should be referenced with relative paths from the <code>atlas.json</code> file.</p>
+
+<pre data-original-title="" title="">
+{
+  "files" : ["chapter1.html", "subfolder/chapter2.html"]
+}</pre>
+</section>
+</section>
+
+<section data-type="sect1" id="optional-fields-0gWfM">
+<h1>Optional Fields</h1>
+
+<section data-type="sect2" id="branch-09AU1">
+<h2>Branch</h2>
+
+<p>This field specifies the name of the project branch from which to build.</p>
+
+<pre data-type="programlisting">
+{
+  "branch": "master"
+}
+</pre>
+</section>
+
+<section data-type="sect2" id="title-0qjHn">
+<h2>Title</h2>
+
+<p>Specifies the title of output files.</p>
+
+<pre data-type="programlisting">
+{
+  "title": "Your title here"
+}
+</pre>
+</section>
+
+<section data-type="sect2" id="theme-0yJuK">
+<h2>Theme</h2>
+
+<p>Use this to specify a theme to use when building the book. This must be the user/organization and project name of the repository. <a href="#stylingandtheming">Lean more about themes</a>.</p>
+
+<pre data-original-title="" title="">
+{
+  "theme" : "oreillymedia/atlas_trade_theme"
+}</pre>
+
+<div data-type="note" id="note-NMDc5"><h6>Note</h6>
+<h1>Note</h1>
+
+<p>If this field is omitted, Atlas will look <em>only</em> in the project's <code>theme/</code> directory for style sheets.</p>
+</div>
+</section>
+
+<section data-type="sect2" id="formats-NrdH1">
+<h2>Formats</h2>
+
+<p>The formats objects holds all settings for the different formats. Here's the basic skeleton. Following is a list of options for the specific formats.</p>
+
+<pre data-original-title="" title="">
+{
+  "formats" : {
+    "pdf" : {
+      "option" : "value"
+    }
+  }
+}</pre>
+
+<section data-type="sect3" id="pdf-GEJub">
+<h3>PDF</h3>
+
+<ul>
+	<li><code>toc</code> - Set to true or false to toggle automatic generation of Table of Contents.</li>
+	<li><code>index</code> - Set to true or false to toggle automatic generation of a book index.</li>
+	<li><code>version</code> - Set to "web" or "print" to generate a PDF for print or digital reading.</li>
+	<li><code>syntaxhighlighting</code> - Set to "false" to turn off syntax highlighting in the build output. Defaults to "true."</li>
+	<li><code>show_comments</code> - Set to "true" to enable rendering of Atlas comments in build output.</li>
+</ul>
+
+<p>Here's an example of what this could look like.</p>
+
+<pre data-original-title="" title="">
+{
+  "formats" : {
+    "pdf" : {
+      "toc" : true,
+      "index" : false,
+      "version" : "web"
+      "syntaxhighlighting": false
+      "show_comments" : false
+    }
+  }
+}</pre>
+</section>
+
+<section data-type="sect3" id="epub-pPlT3">
+<h3>EPUB</h3>
+
+<ul>
+	<li><code>toc</code> - See PDF.</li>
+	<li><code>index</code> - See PDF.</li>
+	<li><code>epubcheck</code> - Set to true or false to toggle validation of EPUB against <a href="http://code.google.com/p/epubcheck/">epubcheck</a> and report results.</li>
+	<li><code>syntaxhighlighting</code> - See PDF.</li>
+	<li><code>show_comments</code> - See PDF.</li>
+</ul>
+</section>
+
+<section data-type="sect3" id="mobi-bndTK">
+<h3>MOBI</h3>
+
+<ul>
+	<li><code>toc</code> - See PDF.</li>
+	<li><code>index</code> - See PDF.</li>
+	<li><code>syntaxhighlighting</code> - See PDF.</li>
+	<li><code>show_comments</code> - See PDF.</li>
+</ul>
+</section>
+
+<section data-type="sect3" id="html-r1dc1">
+<h3 id="html-format-options">HTML</h3>
+
+<ul>
+	<li><code>toc</code> - See PDF.</li>
+	<li><code>index</code> - See PDF.</li>
+	<li>
+	<p><code>javascripts</code> - An array of relative paths to javascript files to be inserted in the <em>layout.html</em> file. Files will be included in the HTML in the order in which they are listed.</p>
+
+	<div data-type="note" id="note-WpLtZ"><h6>Note</h6>
+	<h1>Note</h1>
+
+	<p>If you override the default <code>layout.html</code> and your project contains math content, you'll need to re-enable math rendering with the following:</p>
+
+	<pre data-type="programlisting">
+{
+"javascripts": ["http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"]
+}
+</pre>
+	</div>
+	</li>
+	<li><code>stylesheets</code> - An array of relative paths to CSS files to be inserted in the <em>layout.html</em> file which will override any theme CSS files. Files will be included in the HTML in the order in which they are listed.</li>
+	<li><code>syntaxhighlighting</code> - See PDF.</li>
+	<li><code>show_comments</code> - See PDF.</li>
+</ul>
+
+<p>Here's an example of what this could look like.</p>
+
+<pre data-original-title="" title="">
+{
+  "formats" : {
+    "html": {
+      "index" : true,
+      "javascripts" : [
+        "libraries/jquery.js",
+        "libraries/underscore.js",
+        "custom_script.js"
+      ],
+      "stylesheets" : [
+        "custom_styles.css"
+      ]
+    }
+  }
+}
+</pre>
+</section>
+</section>
+</section>
+</section>
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <title> - </title>
+    
+  </head>
+  <body data-type="book">
+    
+
+    <section class="id" data-type="chapter" id="atlas-git">
+<h1>Atlas + Git</h1>
+
+<p>While we've designed Atlas do to everything you need to write, edit, and build your projects, there may be cases in which you want to work outside of the UI. If you want to work with your favorite local text editor or just want to access Git's powerful tools directly, you can clone your project's repository from Atlas. First, you'll need to pair your SSH public key with Atlas.</p>
+
+<section data-type="sect1" id="sshkeys">
+<h1>SSH Keys</h1>
+
+<section data-type="sect2" id="creating">
+<h2>Creating Your Key</h2>
+
+<div data-type="warning" id="warning-M94tP"><h6>Warning</h6>
+<h1>Warning</h1>
+
+<p>If you're using Windows, please install git locally using the <a href="http://msysgit.github.io/">msysGit project</a>. This will give you access to a command environment called Git Bash and will also allow you to use the ssh-keygen program mentioned below.</p>
+</div>
+
+<p>First, check for an existing key by opening up Terminal/Git Bash and entering:</p>
+
+<pre data-code-language="console" data-executable="" data-type="programlisting">
+$ cat ~/.ssh/id_rsa.pub</pre>
+
+<ul>
+	<li>
+	<p>If you get output, it should be a long string that starts with "ssh-" and ends with your email address. This is your public key. Copy the whole string, and skip to the <a class="xref" href="#adding">next section</a>.</p>
+
+	<div data-type="caution" id="caution-Mg4uy"><h6>Caution</h6>
+	<h1>Caution</h1>
+
+	<p>You'll be asked for your passphrase for this key in a following step; if you don't remember it, proceed with creating a new one.</p>
+	</div>
+	</li>
+	<li>If you get "No such file or directory" (or see a string with no email address), you can generate a new key by following these steps:
+	<ol>
+		<li>In Terminal/Git Bash, type: <code>ssh-keygen -t rsa -C "your_email@example.com"</code>. Make sure to fill in the email address that you use with Atlas.</li>
+		<li>At the prompt to "Enter file in which to save the key (/Users/you/.ssh/id_rsa)", just press return.</li>
+		<li>Enter a passphrase. You'll need to do this twice.</li>
+	</ol>
+	</li>
+</ul>
+
+<p>You should see output indicating that your key has been created. At this point you can run this command again:</p>
+
+<pre data-code-language="console" data-executable="" data-type="programlisting">
+$ cat ~/.ssh/id_rsa.pub</pre>
+
+<p>Now you should see a string that starts with "ssh-" and ends with your email address. Copy that string.</p>
+</section>
+
+<section data-type="sect2" id="adding">
+<h2>Adding Your Key to Atlas</h2>
+
+<p>In Atlas, click your username next to the gear icon at the top right to get to the Account Settings page.&nbsp;Then click the SSH tab.&nbsp;</p>
+
+<figure id="id-GKqH8"><img alt="Alt Text" class="icontentsssh-tabpng" src="images/ssh-tab.png"></figure>
+
+<p>Under "Add an SSH Key," add some descriptive title (e.g., "local machine"), and then paste the string you copied previously under "Public Key."</p>
+
+<figure id="id-GDpta"><img alt="Alt Text" class="icontentsadd-ssh-keypng" src="images/add-ssh-key.png"></figure>
+
+<p>Click the "Add Key" button, and that's it! You should now have the ability to clone down Atlas repos and work with files locally.</p>
+</section>
+</section>
+
+<section data-type="sect1" id="localgit">
+<h1>Working Locally</h1>
+
+<section data-type="sect2" id="git-Op2sw">
+<h2>Git</h2>
+
+<p>Once you've added your SSH public key to Atlas, you're ready to start using Git to work with your project.</p>
+
+<section data-type="sect3" id="download-git-MglF5">
+<h3>Download Git</h3>
+
+<p>You can download git from <a href="http://git-scm.com/">the git-scm site</a>. Just follow the instructions for your platform.</p>
+</section>
+
+<section data-type="sect3" id="clone-your-project-from-atlas-xxvhY">
+<h3>Clone Your Project from Atlas</h3>
+
+<ol>
+	<li>Go to the Project Settings page and copy the Git URL from the box on the right.<img id="c1111" src="images/giturl.png"></li>
+	<li>From the command line, use <code>git clone &lt;your_URL&gt;</code> to pull down your project's repository. By default, using this command will pull the repo into a directory named by your project name. You can override this by putting a new directory name at the end of the command.</li>
+	<li>You'll be prompted for your SSH key passphrase; enter the passphrase you chose when you created your SSH key.</li>
+</ol>
+
+<p>Now you can open and edit your files in your favorite text editor or use Git's command-line tools to modify them directly.</p>
+</section>
+
+<section data-type="sect3" id="pushing-edited-files-back-to-atlas-K0wi0">
+<h3>Pushing Edited Files Back to Atlas</h3>
+
+<p>Once you've made your edits, you'll need to add any new files to be tracked by Git, commit your changes, and then push back to Atlas:</p>
+
+<ol>
+	<li>Add any new files so that Git can start tracking them. Use <code>git add &lt;filename&gt;</code> to add an individual file. Use <code>git add .</code> to add all files in the current directory and all subdirectories.</li>
+	<li>Commit the changes using <code>git commit -a -m'commit message'</code>. Try to use the commit message to leave yourself a note about what you were doing. For example, if you were just adding a big section on the <em>foo</em> method, you'd add a message like "Added section covering foo."</li>
+	<li>Push the changes back up to Atlas using <code>git push origin master</code>.</li>
+</ol>
+
+<div data-type="warning" id="my-push-to-atlas-keeps-getting-rejected-5Rks5"><h6>Warning</h6>
+<h1>My Push to Atlas Keeps Getting Rejected</h1>
+
+<p>If you're getting a message that your changes are rejected, it's most likely because someone has changed the files on Atlas since you started working locally. To fix this, you'll need to commit your current changes and then use <code>git pull origin master</code> to pull in the changes from Atlas. Once you've synced the changes, you'll be able to push your work back up.</p>
+</div>
+</section>
+
+<section data-type="sect3" id="getting-a-diff-QWeSk">
+<h3>Getting a Diff</h3>
+
+<p>You can use Git to get a diff between the files in your local checkout and the files on Atlas. To do this, use <code>git fetch</code>:</p>
+
+<pre data-code-language="console" data-executable="" data-type="programlisting">
+$ git fetch origin
+Password:
+remote: Counting objects: 5, done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 2), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From https://atlas-admin.oreilly.com/git/1230000000065
+&nbsp;&nbsp; 92d4f99..e9fbbe2&nbsp; master&nbsp;&nbsp;&nbsp;&nbsp; -&gt; origin/master</pre>
+This fetches the changes into a local branch, but does not merge them in automatically.
+
+<p>Once you've fetched, you can use this command to see the files that have changed between your local copy and the remote copy:</p>
+
+<pre class="pre" data-code-language="console" data-executable="" data-type="programlisting">
+$ git diff --name-only master..origin/master</pre>
+
+<p>This command will just give you the list of files. If you want to see the actual differences, just leave off the <code>--name-only</code> flag. Once you're satisfied that nothing nefarious is in there, you can merge in the changes you just fetched using this command:</p>
+
+<pre class="pre" data-code-language="console" data-executable="" data-type="programlisting">
+$ git merge origin/master</pre>
+</section>
+</section>
+
+<section data-type="sect2" id="download-zip-JYps4">
+<h2>Download Zip</h2>
+
+<p>If you'd like to work with your files locally but don't want to use Git, you can download all of your project's files in either zip or tar.gz formats. Navigate to your project Settings page, and click on the format you'd like.</p>
+
+<figure id="id-Yk4Fy"><img alt="Alt Text" class="iimagesdownloadzippng" src="images/downloadzip.png"></figure>
+
+<p>Once you've made changes, you can load updated files back to Atlas by simply dragging and dropping them into the files list on the project Dashboard or the files pane in the Editor.</p>
+</section>
+</section>
+
+<section data-type="sect1" id="git-quick-reference-W3lfn">
+<h1>Git Quick Reference</h1>
+
+<p>Here are some of the key terms you'll need to understand to use git:</p>
+
+<dl>
+	<dt>Local repository</dt>
+	<dd>A git repository that is on your local drive. You can make any changes you want to this copy without affecting other files.</dd>
+	<dt>Branch</dt>
+	<dd>A named version set of files within a Git repository. The default name is "master."</dd>
+	<dt>Remote repository</dt>
+	<dd>A named link to a Git repository on another machine. You can have as many remote repositories as you want. "Origin" is the default name, but you can choose any name you like when you add new "remotes" (links to other repositories on different servers).</dd>
+	<dt>Push and pull</dt>
+	<dd>Git lingo for sending the changes made in a local repository to a remote repository, or vice versa.</dd>
+	<dt>Cloning</dt>
+	<dd>Downloading a remote Git repository onto your own machine so that you can edit it locally.</dd>
+	<dt>Commit</dt>
+	<dd>A commit saves all your changes under version control.</dd>
+</dl>
+
+<p>The following table summarizes some commonly used commands.</p>
+
+<table border="1" cellpadding="1" cellspacing="1" style="width: 500px;">
+	<tbody>
+		<tr>
+			<td><code class="literal">git init</code></td>
+			<td>Creates a new blank repo</td>
+		</tr>
+		<tr>
+			<td><code class="literal">git commit -a -m"Your helpful commit message"</code></td>
+			<td>Commits changes to the repo</td>
+		</tr>
+		<tr>
+			<td><code class="literal">git status</code></td>
+			<td>Returns the commit status of the current repo</td>
+		</tr>
+		<tr>
+			<td><code class="literal">git add *</code></td>
+			<td>Adds all files to the repo</td>
+		</tr>
+		<tr>
+			<td><code class="literal">git remote add <em>remote_name</em> <em>remote_URL</em></code></td>
+			<td>Adds a remote repository to which you can push or pull changes</td>
+		</tr>
+		<tr>
+			<td><code class="literal">git remote -v</code></td>
+			<td>Lists the remotes in your repo</td>
+		</tr>
+		<tr>
+			<td><code class="literal">git push <em>remote_name</em> <em>branch_name</em></code></td>
+			<td>Pushes changes from the specified local branch specified to a remote repo. We’ll mostly use <code>git push origin master</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>If you want to know more about Git and all the things you can do with it, check out these resources:</p>
+
+<ul>
+	<li><a class="link " href="http://cheat.errtheblog.com/s/git">Git Cheat Sheet</a>. A great reference to the key commands.</li>
+	<li><a class="link " href="http://hoth.entp.com/output/git_for_designers.html">Git for Designers</a>. A nice introduction to git for non-programmers.</li>
+	<li><a class="link " href="http://progit.org/book">Pro Git</a>. The online version of Scott Chacon's excellent book, <em>Pro Git</em>.</li>
+	<li><a class="link " href="http://www.youtube.com/watch?v=OFkgSjRnay4">O'Reilly Webcast: Git in One Hour</a>. A nice video from Scott Chacon that introduces all the key parts of using Git.</li>
+</ul>
+</section>
+
+<section data-type="sect1" id="syncinggithub">
+<h1>Syncing GitHub and Atlas</h1>
+
+<p>Because book files in Atlas are managed with Git, you can easily sync those files with a repository on GitHub.</p>
+
+<p>To sync an Atlas project with GitHub, first create a new repository. You'll be prompted to enter a name, a description, and whether you want to make the repo public or private (available only if you have a paid account). We recommend giving the project the same name in Atlas and on GitHub.</p>
+
+<figure id="id-aXmTv"><img alt="Alt Text" class="iimagesgithub_new_projectpng" src="images/github_new_project.png">
+<figcaption>Create a new project on GitHub with the same name as your Atlas project.</figcaption>
+</figure>
+
+<p>Once you create a project, you'll see a screen that lists some helpful commands for what you'll do next. Locate the "Existing Git Repo?" section and then find the line that looks like this:</p>
+
+<figure id="id-wXBF6"><img alt="Alt Text" class="iimagesgithub_new_repo_urlpng" src="images/github_new_repo_url.png"></figure>
+
+<p>Once you've got the line, copy the repo's url (in our example, it's <em>git@github.com:MakerPress/new_project.git</em>) and enter the following command in the directory where your local Atlas repo is stored. (Note that the word "origin" is the only thing we're changing from the original command.):</p>
+
+<pre class="pre" data-code-language="console" data-executable="" data-type="programlisting">
+$ git remote add github git@github.com:MakerPress/new_project.git</pre>
+
+<p>Once you've set up the new remote, you can push to it with this command:</p>
+
+<pre class="pre" data-code-language="console" data-executable="" data-type="programlisting">
+$ git push github master</pre>
+
+<p>You can then take full advantage of all the features and community available on GitHub.</p>
+
+<p>Conversely, if you already have a repo on GitHub that you’d like to pull into Atlas, all you have to do is clone it down and add a new remote to an Atlas repo, like this:</p>
+
+<pre class="pre" data-code-language="console" data-executable="" data-type="programlisting">
+$ git clone git@github.com:MakerPress/new_project.git
+Cloning into new_project...
+warning: You appear to have cloned an empty repository.
+admins-MacBook-Air-2:Desktop odewahn
+$ cd new_project/
+admins-MacBook-Air-2:new_project odewahn
+$ git remote add atlas git@git.atlas.oreilly.com:odewahnoreilly/new_project.git</pre>
+</section>
+</section>
+
+
+    
+  </body>
+</html>

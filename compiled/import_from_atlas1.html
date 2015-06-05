@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <title> - </title>
+    
+  </head>
+  <body data-type="book">
+    
+
+    <section data-type="chapter" id="importing-a-project-from-atlas-1-oqDCb">
+<h1>Importing a Project from Atlas 1</h1>
+
+<p>If you're using the original, O'Reilly-only version of Atlas, here's what you'll need to do to import your projects. To do this, you'll need to use Git on the command line.</p>
+
+<div data-type="note" id="before-you-start...-zJ8F6"><h6>Note</h6>
+<h1>Before you start...</h1>
+
+<p>There are two things you need to do before you can migrate a repo over to Atlas 2. First, you must have an account. If you're an O'Reilly author, contact your editor for details on getting a registration code.</p>
+
+<p>Second, you must add your SSH key; follow the instructions <a class="xref" href="#sshkeys">here</a>.</p>
+</div>
+
+<section data-type="sect1" id="get-the-git-url-for-the-repo-you-want-to-move.-k55U3">
+<h1>Get the Git URL for the repo you want to move.</h1>
+
+<p>The first step is to pull your project out of the old system. First, find the remote URL on the Admin tab for your project in Atlas 1:</p>
+
+<figure id="id-o79fy"><img alt="Alt Text" class="icontentsatlas1_git_urlpng" src="images/atlas1_git_url.png">
+<figcaption>You'll find the URL for your repository on the Admin tab.</figcaption>
+</figure>
+</section>
+
+<section data-type="sect1" id="clone-your-original-repo.-AVGhK">
+<h1>Clone your original repo.</h1>
+
+<p>Once you've got the URL, you'll need to clone it to your machine using Git on the command line. For example:</p>
+
+<pre class="pre " data-code-language="console" data-executable="" data-original-title="" data-type="programlisting" title="">
+$ git clone https://odewahn%40oreilly.com@atlas-server.oreilly.com/git/1234000000486.git
+Cloning into '1234000000486'...
+Password for 'https://odewahn@oreilly.com@atlas-server.oreilly.com':&nbsp;
+remote: Counting objects: 2831, done.
+remote: Compressing objects: 100% (2535/2535), done.
+remote: Total 2831 (delta 1388), reused 736 (delta 182)
+Receiving objects: 100% (2831/2831), 20.34 MiB | 977 KiB/s, done.
+Resolving deltas: 100% (1388/1388), done.
+</pre>
+
+<p>Note that your password is the same as your password when you log into Atlas.</p>
+</section>
+
+<section data-type="sect1" id="create-a-bare-repo-in-atlas-2-to-receive-your-project.-kBpuL">
+<h1>Create a "bare" repo in Atlas 2 to receive your project.</h1>
+
+<p>Since you have an existing project, you'll need to create what's called a "bare" repo to receive your content and history. &nbsp;To do this:</p>
+
+<ol>
+	<li>Click the "New Project" button</li>
+	<li>Give your project a title and a description</li>
+	<li>Select "Bare" in the "Template" section&nbsp;</li>
+	<li>Click "Create!"</li>
+</ol>
+
+<figure id="id-zplc7"><img alt="Alt Text" class="icontentscreate_bare_repopng" src="images/create_bare_repo.png">
+<figcaption>Create a bare repo to accept your project.</figcaption>
+</figure>
+</section>
+
+<section data-type="sect1" id="get-the-url-for-your-new-repo-from-the-settings-tab.-kG3HN">
+<h1>Get the URL for your new repo from the Settings tab.</h1>
+
+<p>Once you've created the new repo, go to the Project Settings tab and copy its Git URL.&nbsp;</p>
+
+<figure id="id-znJu8"><img alt="Alt Text" class="icontentsgit_url_from_settingspng" src="images/git_url_from_settings.png">
+<figcaption>Copy the Atlas 2 repo URL.</figcaption>
+</figure>
+</section>
+
+<section data-type="sect1" id="add-a-remote-from-your-old-repo-to-your-new-one-and-push.-kM7Un">
+<h1>Add a remote from your old repo to your new one and push.</h1>
+
+<p>Once you have the new repo's Git URL, return to the command line client and add a remote to the repo you want to move. Then, push it. &nbsp;</p>
+
+<div data-type="warning" id="verifying-the-atlas-2-git-servers-identity-AOgf0"><h6>Warning</h6>
+<h1>Verifying the Atlas 2 Git Server's identity</h1>
+
+<p>Note that you may be prompted to verify the identity of the Atlas 2 Git server the first time you push. If so, just type "yes" at the prompt.</p>
+</div>
+
+<p>Your session should look something like this:</p>
+
+<pre class="pre" data-code-language="console" data-executable="" data-original-title="" data-type="programlisting" title="">
+$ git remote add atlas2 git@54.84.204.203:odewahn/the-github-book.git
+admins-air-5:1234000000486 odewahn$ git push atlas2 master
+The authenticity of host '54.84.204.203 (54.84.204.203)' can't be established.
+RSA key fingerprint is 35:4b:68:ee:42:aa:2a:b3:0e:0a:6f:87:0e:5e:b3:87.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '54.84.204.203' (RSA) to the list of known hosts.
+Counting objects: 2831, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (1329/1329), done.
+Writing objects: 100% (2831/2831), 20.34 MiB | 1.30 MiB/s, done.
+Total 2831 (delta 1388), reused 2831 (delta 1388)
+To git@54.84.204.203:odewahn/the-github-book.git
+&nbsp;* [new branch]&nbsp; &nbsp; &nbsp; master -&gt; master
+</pre>
+</section>
+</section>
+
+
+    
+  </body>
+</html>

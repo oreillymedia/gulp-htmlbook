@@ -1,0 +1,27 @@
+{
+  "name": "HTMLBook",
+  "version": "0.0.1",
+  "description": "Render HTMLBook",
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "fchasen@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "bluebird": "^2.3.2",
+    "cheerio": "^0.17.0",
+    "gulp-liquid": "^0.1.0",
+    "gulp-util": "^3.0.1",
+    "liquid-node": "^2.1.2",
+    "lodash": "^2.4.1",
+    "node_xslt": "^0.1.9",
+    "through2": "^0.6.1"
+  },
+  "dependencies": {
+    "liquid-node": "^2.1.2"
+  }
+}

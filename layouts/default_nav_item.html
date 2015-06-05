@@ -1,0 +1,10 @@
+<ol>
+  {% for item in navigation %}
+    <li><a href="{{ item.href }}">{{ item.label }}</a>
+    {% if item.children %}
+      {% assign navigation = item.children %}
+      {% include default_nav.html %}
+    {% endif %}
+    </li>
+  {% endfor %}
+</ol>

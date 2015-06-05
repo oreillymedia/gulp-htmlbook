@@ -1,0 +1,237 @@
+<section data-type="chapter" id="atlas-api">
+<h1 class="fred">O’Reilly Atlas API</h1>
+
+<p>O’Reilly Atlas comes with a API that can be used to perform most of the tasks that can be triggered via the UI. This makes it possible to build external services on top of the platform.</p>
+
+<section data-type="sect1" id="authentication-N21s6">
+<h1>Authentication</h1>
+
+<p>To use the API, you will need to obtain an API token from the Atlas UI. You can then use this token as a parameter when accessing the API. All routes in Atlas require an <code>auth_token</code>, and will return a 404 if none is provided:</p>
+
+<p><code>curl https://atlas.oreilly.com/api?auth_token=abcdefg1234567 </code></p>
+
+<p>This token can be revoked via the Atlas UI.</p>
+
+<div data-type="note" id="where-to-find-your-api-key-NQXtO"><h6>Note</h6>
+<h1>Where to find your API Key</h1>
+
+<p>You can find your API key in the "Account Settings" screen, which you access by clicking on your username in the main header.</p>
+
+<p><img class="icontentsimagesfind_api_keypng" src="images/apitoken.png"></p>
+</div>
+</section>
+
+<section data-type="sect1" id="builds-NvAFv">
+<h1>Builds</h1>
+
+<section data-type="sect2" id="create-ND5sa">
+<h2>Create</h2>
+
+<p><code>POST /api/builds</code></p>
+
+<p>Create a new build for a specific Atlas project. This will only succeed if the authenticated user is allowed to clone the repository from Atlas and the project has an <code>atlas.json</code> file with at least a list of files to build in order.</p>
+
+<section data-type="sect3" id="input-parameters-MWpU5">
+<h3>Input Parameters</h3>
+
+<p><strong>project</strong>: Full name of the Atlas repo to build (e.g., <code>runemadsen/Hello-World</code>).</p>
+
+<p><strong>formats</strong>: Comma-separated list of formats to build. Possible options are <code>pdf</code>, <code>epub</code>, <code>mobi</code>, <code>html</code> and <code>atlas</code>.</p>
+
+<p><strong>branch</strong>: Name of the branch to build. If this is not specified, <code>master</code> will be used. This is useful for building older versions, or managing multiple concurrent versions of a project.</p>
+
+<p>A <strong>successful</strong> response does not mean that the build finished. You will need to manually check the <code>build_url</code> to know when each of the formats in the build succeeded. There are 4 different states that a build format can return.</p>
+</section>
+
+<section data-type="sect3" id="response-queued-MqYIL">
+<h3>Response: Queued</h3>
+
+<p>A <code>queued</code> response means that the build is waiting in the queue to be performed.</p>
+
+<pre data-code-language="javascript" data-executable="" data-original-title="" title="">
+{
+  "build_url" : "https://atlas.oreilly.com/api/builds/1",
+  "status" : [
+    {
+      "format" : "pdf",
+      "status" : "queued"
+    }
+  ]
+}
+</pre>
+</section>
+
+<section data-type="sect3" id="response-working-E22Ck">
+<h3>Response: Working</h3>
+
+<p>A <code>working</code> response means that the build is currently being performed.</p>
+
+<pre data-code-language="javascript" data-executable="" data-original-title="" title="">
+{
+  "build_url" : "https://atlas.oreilly.com/api/builds/1",
+  "status" : [
+    {
+      "format" : "pdf",
+      "status" : "working"
+    }
+  ]
+}
+</pre>
+</section>
+
+<section data-type="sect3" id="response-completed-AJ0Ug">
+<h3>Response: Completed</h3>
+
+<p>A <code>completed</code> response means that the build successfully completed. You can then grab the file from the <code>download_url</code>. If the build succeeded with warning, you can read those warnings in the <code>message</code> property.</p>
+
+<pre data-code-language="javascript" data-executable="" data-original-title="" title="">
+{
+  "build_url" : "https://atlas.oreilly.com/api/builds/1",
+  "status" : [
+    {
+      "format" : "pdf",
+      "status" : "completed",
+      "download_url" : "http//www.something.com/something.pdf",
+      "message" : "a potential warning"
+    }
+  ]
+}
+</pre>
+</section>
+
+<section data-type="sect3" id="response-failed-wKghP">
+<h3>Response: Failed</h3>
+
+<p>A <code>failed</code> response means that the build failed. Details about the error message are in the <code>message</code> property of the response.</p>
+
+<pre data-code-language="javascript" data-executable="" data-original-title="" title="">
+{
+  "build_url" : "https://atlas.oreilly.com/api/builds/1",
+  "status" : [
+    {
+      "format" : "pdf",
+      "status" : "failed",
+      "message" : "This is an error message"
+    }
+  ]
+}
+</pre>
+</section>
+</section>
+</section>
+
+<section data-type="sect1" id="atlas-cli-packages">
+<h1>Atlas CLI Packages</h1>
+
+<p>We offer two different command-line packages for interacting with the Atlas API: one in Ruby and one in Go.</p>
+
+<section data-type="sect2" id="atlas-gem">
+<h2>Atlas API Ruby Gem</h2>
+
+<p>Gem to interact with the O'Reilly Atlas API. Requires Ruby &gt;=1.9.</p>
+
+<section data-type="sect3" id="installing-RDgho">
+<h3>Installing</h3>
+
+<p>Install this gem by running:</p>
+
+<pre data-code-language="ruby" data-executable="" data-original-title="" title="">
+$ gem install atlas-api
+</pre>
+</section>
+
+<section data-type="sect3" id="command-line-script-rW0Cv">
+<h3>Command Line Script</h3>
+
+<p>You can build a specific project by calling the <code>atlas build</code> command line:</p>
+
+<pre data-code-language="console" data-executable="" data-original-title="" title="">
+$ atlas build ATLAS_TOKEN PROJECT FORMATS BRANCH
+</pre>
+
+<p>A real world example of this would look something like this:</p>
+
+<pre data-code-language="console" data-executable="" data-original-title="" title="">
+$ atlas build abcdefg oreillymedia/atlas_book_skeleton pdf,epub,html master
+</pre>
+</section>
+</section>
+
+<section data-type="sect2" id="atlas-api-go-binary-B5qTq">
+<h2>Atlas API Go Binary</h2>
+
+<p>A Go-based Atlas API client for building projects and publishing them as a web site.</p>
+
+<div data-type="note" id="note-z2vfp"><h6>Note</h6>
+<h1>Note</h1>
+
+<p>The Go-based Atlas API client is in an alpha stage of development. Please go <a href="https://github.com/oreillymedia/atlas-cli/issues">here</a> to report issues or questions.</p>
+</div>
+
+<p>Here's the top-level help:</p>
+
+<pre data-type="programlisting">
+NAME:
+   atlas - OºReilly Atlas command line tool
+   
+USAGE:
+   atlas [global options] command [command options] [arguments...]
+
+VERSION:
+   0.0.8-alpha
+
+COMMANDS:
+   login    Set your login/API credentials
+   whoami   Display your login/API credentials
+   info     Display info about your Atlas project based on the git config file
+   build    Build a project
+   open     Open a site
+   publish  Publish a site
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --help, -h       show help
+   --version, -v    print the version
+</pre>
+
+<section data-type="sect3" id="installation-ED2uk">
+<h3>Installation</h3>
+
+<ul>
+	<li>Download the <a href="https://github.com/oreillymedia/atlas-cli/releases">latest release</a> for your OS architecture</li>
+	<li>Put the file on your main path and rename it to <code>atlas</code></li>
+	<li>Run <code>chmod + x</code> on it</li>
+</ul>
+
+<p>A packager will be available in a future update.</p>
+</section>
+
+<section data-type="sect3" id="usage-lLkt7">
+<h3>Usage</h3>
+
+<p>With this command, you can do things like this:</p>
+
+<ul>
+	<li><code>atlas build -p odewahn/dds-field-guide --html</code></li>
+	<li><code>atlas build -p odewahn/dds-field-guide --pdf --epub</code></li>
+	<li><code>atlas publish -p odewahn/dds-field-guide --public</code></li>
+	<li><code>atlas open -p odewahn/dds-field-guide --public</code></li>
+</ul>
+
+<p>If you omit the <code>-p</code> flag, the CLI will see if it can find a project name from the remotes defined in your git config. So, if you're in your project's home directory, you can just do this:</p>
+
+<ul>
+	<li><code>atlas build --html</code></li>
+	<li><code>atlas publish --public</code></li>
+	<li><code>atlas open --public</code></li>
+</ul>
+
+<div data-type="note" id="note-21wUO"><h6>Note</h6>
+<h1>Note</h1>
+
+<p>The <code>publish</code> and <code>open</code> capabilities are in a very early stage of development and may not apply to your project.</p>
+</div>
+</section>
+</section>
+</section>
+</section>
