@@ -2,14 +2,31 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
+    
+    {% if title %}
     <title>{{ title }} - {{ label }}</title>
+    {% else %}
+    <title>{{ label }}</title>
+    {{ endif }}
+
+    {% if prev_url %}
+    <link rel="prev" href="{{ prev_url }}">
+    {% endif %}
+    {% if next_url %}
+    <link rel="next" href="{{ next_url }}">
+    {% endif %}
+
     {{ header }}
   </head>
   <body data-type="book">
-    {{ prev_link }}
-
+    {% if prev_url %}
+    Previous: <a href="{{ prev_url }}">{{ prev_label }}</a>
+    {% endif %}
+    
     {{ content }}
 
-    {{ next_link }}
+    {% if next_url %}
+    Next: <a href="{{ next_url }}">{{ next_label }}</a>
+    {% endif %}
   </body>
 </html>

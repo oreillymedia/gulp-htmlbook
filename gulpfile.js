@@ -7,27 +7,9 @@ var htmlbook = require("./index.js");
 var cheerioify = require('./plugins/gulp-cheerioify/index.js');
 var liquify = require("./plugins/gulp-liquid/index.js");
 
-var inputPath = "books/atlas-documentation/"
+var inputPath = "test/alice/";
 var outputPath = inputPath + "compiled/";
-
-var files = [
-    "index.html",
-    "getting-started.html",
-    "why-atlas.html",
-    "sign_in_first_time.html",
-    "writing.html",
-    "collaboration.html",
-    "formats.html",
-    "styling_and_themeing.html",
-    "using_git.html",
-    "atlas-json.html",
-    "api.html",
-    "writing_in_asciidoc.html",
-    "writing_in_markdown.html",
-    "includes.md",
-    "import_from_atlas1.html",
-    "faq.html"
-  ];
+var files = require("./test/alice/files.json");
 
 gulp.task('transform', [], function() {
 
@@ -54,9 +36,10 @@ gulp.task('compile', [], function() {
 });
 
 gulp.task('template', ['compile', "navigation", "index"], function() {
+  var nav = require("./"+outputPath+"nav.json"); // Load the map
 
   return gulp.src(outputPath+"*.html")
-    // .pipe(htmlbook.layout.ordering(_settings.files, _settings.navigation))
+    .pipe(htmlbook.layout.ordering(files, nav.navigation))
     .pipe(htmlbook.layout.template({
       templatePath : "./layouts/default_layout.html",
       wrapper: 'content'
