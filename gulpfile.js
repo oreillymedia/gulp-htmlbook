@@ -35,7 +35,7 @@ gulp.task('compile', [], function() {
 
 });
 
-gulp.task('template', ['compile', "navigation", "index"], function() {
+gulp.task('template', ['compile', "navigation", "index", "nav"], function() {
   var nav = require("./"+outputPath+"nav.json"); // Load the map
 
   return gulp.src(outputPath+"*.html")
@@ -59,15 +59,24 @@ gulp.task('map', ['compile'], function() {
     .pipe(gulp.dest(outputPath));
 });
 
+gulp.task('nav', ['compile', 'navigation'], function() {
+  return gulp.src(outputPath+"*.html")
+    .pipe(order(files))
+    .pipe(cheerioify({
+      xmlMode: false
+    }))
+    .pipe(htmlbook.generate.nav())
+    .pipe(gulp.dest(outputPath));
+});
+
 gulp.task('navigation', ['compile'], function() {
   return gulp.src(outputPath+"*.html")
     .pipe(order(files))
     .pipe(cheerioify({
       xmlMode: false
     }))
-    .pipe(order(files))
     .pipe(htmlbook.generate.nav())
-    .pipe(gulp.dest(outputPath))
+    //.pipe(gulp.dest(outputPath))
     // Create html
     .pipe(htmlbook.layout.navigation({
       templatePath : "./layouts/default_nav.html"
@@ -83,7 +92,7 @@ gulp.task('index', ['compile'], function() {
     }))
     .pipe(order(files))
     .pipe(htmlbook.generate.index())
-    .pipe(gulp.dest(outputPath))
+    // .pipe(gulp.dest(outputPath))
     // Create html
     .pipe(htmlbook.layout.index({
       templatePath : "./layouts/default_index.html"

@@ -20,13 +20,13 @@
   </head>
   <body data-type="book">
     {% if prev_url %}
-    Previous: <a href="{{ prev_url }}">{{ prev_label }}</a>
+    &laquo; <a href="{{ prev_url }}">{{ prev_label }}</a>
     {% endif %}
     
     {{ content }}
 
     {% if next_url %}
-    Next: <a href="{{ next_url }}">{{ next_label }}</a>
+    <a href="{{ next_url }}">{{ next_label }}</a> &raquo;
     {% endif %}
   </body>
 </html>

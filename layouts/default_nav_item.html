@@ -3,7 +3,7 @@
     <li><a href="{{ item.href }}">{{ item.label }}</a>
     {% if item.children %}
       {% assign navigation = item.children %}
-      {% include default_nav.html %}
+      {% include default_nav_item.html %}
     {% endif %}
     </li>
   {% endfor %}
