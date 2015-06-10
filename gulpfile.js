@@ -35,11 +35,11 @@ gulp.task('compile', [], function() {
 
 });
 
-gulp.task('template', ['compile', "navigation", "index", "nav"], function() {
-  var nav = require("./"+outputPath+"nav.json"); // Load the map
+gulp.task('template', ['compile', "navigation", "index"], function() {
+  var map = require("./"+outputPath+"map.json"); // Load the map
 
   return gulp.src(outputPath+"*.html")
-    .pipe(htmlbook.layout.ordering(files, nav.navigation))
+    .pipe(htmlbook.layout.ordering(files, map))
     .pipe(htmlbook.layout.template({
       templatePath : "./layouts/default_layout.html",
       wrapper: 'content'
@@ -59,15 +59,6 @@ gulp.task('map', ['compile'], function() {
     .pipe(gulp.dest(outputPath));
 });
 
-gulp.task('nav', ['compile', 'navigation'], function() {
-  return gulp.src(outputPath+"*.html")
-    .pipe(order(files))
-    .pipe(cheerioify({
-      xmlMode: false
-    }))
-    .pipe(htmlbook.generate.nav())
-    .pipe(gulp.dest(outputPath));
-});
 
 gulp.task('navigation', ['compile'], function() {
   return gulp.src(outputPath+"*.html")
