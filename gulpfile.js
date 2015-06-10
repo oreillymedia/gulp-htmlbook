@@ -111,6 +111,13 @@ gulp.task('labels', ['compile','map','template','xrefs'], function() {
     .pipe(gulp.dest(outputPath));
 });
 
+gulp.task('chunk', [], function() {
+
+  return gulp.src("test/samples/htmlbook.html")
+    .pipe(htmlbook.layout.chunk()) // Splits on chapters. {split: 1} will split on 'sect1'
+    .pipe(gulp.dest("test/samples/compiled/"));
+});
+
 gulp.task('default', ['compile', 'template', 'map', 'navigation', 'index', 'xrefs'], function(){
 
 });

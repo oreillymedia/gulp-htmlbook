@@ -8,7 +8,8 @@ module.exports = {
     template: require('./lib/template'),
     ordering: require('./lib/position'),
     navigation: require('./lib/toc'),
-    index: require('./lib/ix')
+    index: require('./lib/ix'),
+    chunk: require('./lib/chunk')
   },
   // Run through all content and generate reference objects
   generate: {
