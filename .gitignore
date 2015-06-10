@@ -1,6 +1,6 @@
 books/*
 books
-test/compiled
+*/**/compiled
 node_modules
 .env
 
