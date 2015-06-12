@@ -2,7 +2,6 @@
   "name": "gulp-htmlbook",
   "version": "0.0.1",
   "description": "Render HTMLBook",
-  "bin": "./bin/gulp-htmlbook.js",
   "main": "index.js",
   "directories": {
     "test": "test"
