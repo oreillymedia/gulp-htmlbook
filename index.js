@@ -31,6 +31,7 @@ module.exports = {
     helpers: require('./lib/helpers'),
     mapper: require('./lib/mapper'),
     generateid: require('./lib/generateid'),
+    markdown: require('./lib/markdown')
   }
 
 }
