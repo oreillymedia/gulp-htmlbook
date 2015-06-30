@@ -127,7 +127,7 @@ var markdown_headers = ['h1','h2','h3','h4','h5','h6'],
     }.bind(this),
     function (error) {
       if (error) {
-        console.log('error parsing');
+        console.log('error parsing', error);
         process.exit(1);
       }
     });
