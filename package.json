@@ -1,6 +1,6 @@
 {
   "name": "gulp-htmlbook",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Render HTMLBook",
   "main": "index.js",
   "directories": {
@@ -23,11 +23,15 @@
     "gulp-order": "^1.1.1",
     "gulp-util": "^3.0.1",
     "hashids": "^1.0.1",
+    "html": "0.0.10",
+    "htmlparser2": "^3.8.3",
     "lodash": "^2.4.1",
     "slug": "^0.9.1",
     "sorted": "^0.1.1",
+    "string": "^3.3.0",
     "through2": "^0.6.1",
     "tinyliquid": "^0.2.24",
+    "underscore": "^1.8.3",
     "vinyl": "^0.4.3"
   },
   "repository": {
