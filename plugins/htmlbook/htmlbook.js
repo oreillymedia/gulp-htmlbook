@@ -112,7 +112,11 @@ var markdown_headers = ['h1','h2','h3','h4','h5','h6'],
     });
     var parser = new htmlparser.Parser(handler);
 
-    this.kramdown(this.input, function(result){
+    this.kramdown(this.input, function(result, errors){
+
+			if (errors) {
+        console.error('issues parsing', errors);
+      }
 
       parser.write(result);
       parser.end();
@@ -217,6 +221,7 @@ var markdown_headers = ['h1','h2','h3','h4','h5','h6'],
   HTMLBook.prototype.kramdown = function (contents, resolve, reject) {
 
       var result = '';
+			var errors = '';
 
       var process = spawn("kramdown", ["--syntax-highlighter", "nil"]);
 
@@ -229,13 +234,13 @@ var markdown_headers = ['h1','h2','h3','h4','h5','h6'],
       });
 
       process.stdout.on('close', function() {
-          resolve(result);
+          resolve(result, errors);
       });
 
       process.stderr.on('data', function(data) {
-          var error = data.toString();
+          errors += data.toString();
 
-          reject(error);
+          // reject(error);
       });
 
   }
