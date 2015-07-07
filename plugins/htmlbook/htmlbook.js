@@ -8,7 +8,7 @@ var sys = require('sys'),
   elements = schema["xs:schema"]["xs:element"],
   complex = schema["xs:schema"]["xs:complexType"],
   S = require('string'),
-  spawn = require('child_process').spawn;
+  kramed = require('kramed');
 
 var markdown_headers = ['h1','h2','h3','h4','h5','h6'],
   htmlbook_headers = ['h1','h1','h2','h3','h4','h5'],
@@ -91,7 +91,7 @@ var markdown_headers = ['h1','h2','h3','h4','h5','h6'],
   }
 
   // Parse the html input and pass off to the traverse callback
-  HTMLBook.prototype.parse = function (opts, cb) {
+  HTMLBook.prototype.parse = function (opts) {
     this.first_sect = true;
     this.options.parse = {"complete_html": false}
     if (helpers.existy(opts) && typeof opts === "object") {
@@ -111,30 +111,15 @@ var markdown_headers = ['h1','h2','h3','h4','h5','h6'],
       }
     });
     var parser = new htmlparser.Parser(handler);
+    parser.write(kramed(this.input));
+    parser.end();
 
-    this.kramdown(this.input, function(result, errors){
-
-			if (errors) {
-        console.error('issues parsing', errors);
-      }
-
-      parser.write(result);
-      parser.end();
-
-      if (this.options.parse.complete_html === true) {
-        cb(this.header_content() + this.traverse(handler.dom) + close_sections(this.openings, this.closings) + this.footer_content());
-      }
-      else {
-        cb(this.traverse(handler.dom) + close_sections(this.openings, this.closings));
-      }
-
-    }.bind(this),
-    function (error) {
-      if (error) {
-        console.log('error parsing', error);
-        process.exit(1);
-      }
-    });
+    if (this.options.parse.complete_html === true) {
+      return this.header_content() + this.traverse(handler.dom) + close_sections(this.openings, this.closings) + this.footer_content();
+    }
+    else {
+      return this.traverse(handler.dom) + close_sections(this.openings, this.closings);
+    }
   }
 
   // Construct an opening tag with the specified attributes.
@@ -216,33 +201,6 @@ var markdown_headers = ['h1','h2','h3','h4','h5','h6'],
     }, this);
 
     return output;
-  }
-
-  HTMLBook.prototype.kramdown = function (contents, resolve, reject) {
-
-      var result = '';
-			var errors = '';
-
-      var process = spawn("kramdown", ["--syntax-highlighter", "nil"]);
-
-      process.stdin.setEncoding = 'utf-8';
-      process.stdin.write(contents);
-      process.stdin.end();
-
-      process.stdout.on('data', function(data) {
-        result += data.toString();
-      });
-
-      process.stdout.on('close', function() {
-          resolve(result, errors);
-      });
-
-      process.stderr.on('data', function(data) {
-          errors += data.toString();
-
-          // reject(error);
-      });
-
   }
 
   module.exports = function (str) {return new HTMLBook(str)};

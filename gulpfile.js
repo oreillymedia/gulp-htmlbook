@@ -13,10 +13,10 @@ var files = require("./test/alice/files.json");
 
 gulp.task('transform', [], function() {
 
-  return gulp.src(inputPath+"*.html")
-    //.pipe(markdownToHtmlbook()) // or transform from asciidoc ect.
+  return gulp.src(inputPath+"*.md")
+    .pipe(htmlbook.tools.markdown()) // or transform from asciidoc ect.
     //.pipe(htmlbook.layout.chunk('sect1')) // Split on x
-    //.pipe(gulp.dest(outputPath));
+    .pipe(gulp.dest(outputPath));
 });
 
 gulp.task('compile', [], function() {
