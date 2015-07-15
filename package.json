@@ -1,6 +1,6 @@
 {
   "name": "gulp-htmlbook",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Render HTMLBook",
   "main": "index.js",
   "directories": {
