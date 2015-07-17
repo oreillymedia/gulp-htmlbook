@@ -14,6 +14,7 @@ module.exports = {
   // Run through all content and generate reference objects
   generate: {
     map: require('./lib/map'),
+    titles: require('./lib/titles'),
     index: require('./lib/indexer'),
     nav: require('./lib/nav')
   },

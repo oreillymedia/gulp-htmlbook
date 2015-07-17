@@ -25,7 +25,8 @@ gulp.task('compile', [], function() {
     .pipe(liquify()) // or transform from markdown, asciidoc ect.
     // .pipe(htmlbook.layout.chunk('sect1')) // Split on x
     .pipe(cheerioify({
-      xmlMode: false
+      xmlMode: true,
+      decodeEntities: false
     }))
     .pipe(htmlbook.process.ids({output: false}))
     .pipe(htmlbook.process.indexterms({output: false}))
@@ -36,10 +37,10 @@ gulp.task('compile', [], function() {
 });
 
 gulp.task('template', ['compile', "navigation", "index"], function() {
-  var map = require("./"+outputPath+"map.json"); // Load the map
+  var titles = require("./"+outputPath+"titles.json"); // Load the map
 
   return gulp.src(outputPath+"*.html")
-    .pipe(htmlbook.layout.ordering(files, map))
+    .pipe(htmlbook.layout.ordering(files, titles))
     .pipe(htmlbook.layout.template({
       templatePath : "./layouts/default_layout.html",
       wrapper: 'content'
@@ -53,9 +54,21 @@ gulp.task('map', ['compile'], function() {
   return gulp.src(outputPath+"*.html")
     .pipe(order(files))
     .pipe(cheerioify({
-      xmlMode: false
+      xmlMode: true,
+      decodeEntities: false
     }))
     .pipe(htmlbook.generate.map())
+    .pipe(gulp.dest(outputPath));
+});
+
+gulp.task('titles', ['compile'], function() {
+  return gulp.src(outputPath+"*.html")
+    .pipe(order(files))
+    .pipe(cheerioify({
+      xmlMode: true,
+      decodeEntities: false
+    }))
+    .pipe(htmlbook.generate.titles())
     .pipe(gulp.dest(outputPath));
 });
 
@@ -64,7 +77,8 @@ gulp.task('navigation', ['compile'], function() {
   return gulp.src(outputPath+"*.html")
     .pipe(order(files))
     .pipe(cheerioify({
-      xmlMode: false
+      xmlMode: true,
+      decodeEntities: false
     }))
     .pipe(htmlbook.generate.nav())
     //.pipe(gulp.dest(outputPath))
@@ -79,7 +93,8 @@ gulp.task('index', ['compile'], function() {
   return gulp.src(outputPath+"*.html")
     .pipe(order(files))
     .pipe(cheerioify({
-      xmlMode: false
+      xmlMode: true,
+      decodeEntities: false
     }))
     .pipe(order(files))
     .pipe(htmlbook.generate.index())
@@ -95,7 +110,8 @@ gulp.task('xrefs', ['compile','map', 'template'], function() {
   var map = require("./"+outputPath+"map.json"); // Load the map
   return gulp.src(outputPath+"*.html")
     .pipe(cheerioify({
-      xmlMode: false
+      xmlMode: true,
+      decodeEntities: false
     }))
     .pipe(htmlbook.process.xrefs(map, {output: true}))
     .pipe(gulp.dest(outputPath));
@@ -105,7 +121,8 @@ gulp.task('labels', ['compile','map','template','xrefs'], function() {
   var map = require("./"+outputPath+"map.json"); // Load the map
   return gulp.src(outputPath+"*.html")
     .pipe(cheerioify({
-      xmlMode: false
+      xmlMode: true,
+      decodeEntities: false
     }))
     .pipe(htmlbook.process.labels(map, {output: true}))
     .pipe(gulp.dest(outputPath));
