@@ -38,7 +38,7 @@ describe('When encountering a section without an id', function() {
       id.should.equal("id-yBpfL");
 
       done();
-    
+
     });
 
   });
@@ -72,7 +72,7 @@ describe('When encountering a section with an id', function() {
       id.should.equal("cookies");
 
       done();
-    
+
     });
 
   });
@@ -107,7 +107,7 @@ describe('When encountering a Part div without an id', function() {
       id.should.equal("id-yxvfX");
 
       done();
-    
+
     });
 
   });
@@ -142,7 +142,7 @@ describe('When encountering a Part div with an id', function() {
       id.should.equal("pizza");
 
       done();
-    
+
     });
 
   });
@@ -175,7 +175,7 @@ describe('When encountering an aside without an id', function() {
       id.should.equal("id-gd2fN");
 
       done();
-    
+
     });
 
   });
@@ -210,7 +210,7 @@ describe('When encountering an aside with an id', function() {
       id.should.equal("watermelon");
 
       done();
-    
+
     });
 
   });
@@ -244,7 +244,7 @@ describe('When encountering an indexterm without an id', function() {
       id.should.equal("id-gXwfO");
 
       done();
-    
+
     });
 
   });
@@ -279,7 +279,7 @@ describe('When encountering an indexterm with an id', function() {
       id.should.equal("avocado");
 
       done();
-    
+
     });
 
   });
@@ -312,7 +312,7 @@ describe('When encountering an indexterm that contains only whitespace', functio
       $link.text().should.equal('');
 
       done();
-    
+
     });
 
   });
@@ -345,7 +345,7 @@ describe('When encountering an indexterm that contains only whitespace (includin
       $link.text().should.equal('');
 
       done();
-    
+
     });
 
   });
@@ -378,7 +378,7 @@ describe('When encountering an indexterm that contains child nodes only', functi
       $link.children().length.should.equal(1);
 
       done();
-    
+
     });
 
   });
@@ -403,7 +403,6 @@ describe('When encountering an indexterm that contains child nodes only (2)', fu
     var id;
 
     stream.once('data', function(file) {
-      console.log(file.contents.toString())
       var $doc = cheerio.load(file.contents.toString(), { xmlMode: false, decodeEntities: false });
 
       // <a data-type="indexterm" data-primary="xslt" data-secondary="xml and" id="..."><br/></a>
@@ -414,7 +413,7 @@ describe('When encountering an indexterm that contains child nodes only (2)', fu
       $link.html().should.equal("<br>"); // HTML ouput
 
       done();
-    
+
     });
 
   });
@@ -446,7 +445,7 @@ describe('When encountering an indexterm that contains child nodes and text', fu
       $link.html().should.equal("<em>123</em>456");
 
       done();
-    
+
     });
 
   });
@@ -478,7 +477,7 @@ describe('When encountering an indexterm that contains child nodes, text, and wh
       $link.html().should.equal("<em>Unicode</em>&#xa0; &#xa0;is fun");
 
       done();
-    
+
     });
 
   });
@@ -517,7 +516,7 @@ describe('When encountering a heading element (h1-h5) in a Part (header block)',
       $heading.html().should.equal('<span class="label">Part I. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -554,7 +553,7 @@ describe('When encountering a heading element (h1-h5) in a Part (header block)',
       $heading.html().should.equal('<span class="label">Part I. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -588,7 +587,7 @@ describe('When encountering a heading element (h1-h5) in a top level-section (lo
       $heading.html().should.equal('<span class="label">Chapter 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -625,7 +624,7 @@ describe('When encountering a heading element (h1-h5) in a top level-section (he
       $heading.html().should.equal('<span class="label">Chapter 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -659,7 +658,7 @@ describe('When encountering a heading element (h1-h5) in a sect2 (loose h2)', fu
       $heading.html().should.equal('<span class="label">Section 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -697,7 +696,7 @@ describe('When encountering a heading element (h1-h5) in a sect2 (header block)'
       $heading.html().should.equal('<span class="label">Section 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -735,7 +734,7 @@ describe('When encountering a heading element (h1-h5) in a sect2 (header block)'
       $heading.html().should.equal('Subtitle should always be left untouched');
 
       done();
-    
+
     });
 
   });
@@ -769,7 +768,7 @@ describe('When encountering a heading element (h1-h5) in a sect3 (loose h3)', fu
       $heading.html().should.equal('<span class="label">Section 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -806,7 +805,7 @@ describe('When encountering a heading element (h1-h5) in a sect3 (header block)'
       $heading.html().should.equal('<span class="label">Section 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -840,7 +839,7 @@ describe('When encountering a heading element (h1-h5) in a sect4 (loose h4)', fu
       $heading.html().should.equal('<span class="label">Section 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -877,7 +876,7 @@ describe('When encountering a heading element (h1-h5) in a sect4 (header block)'
       $heading.html().should.equal('<span class="label">Section 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -911,7 +910,7 @@ describe('When encountering a heading element (h1-h5) in a sect5 (loose h5)', fu
       $heading.html().should.equal('<span class="label">Section 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -948,7 +947,7 @@ describe('When encountering a heading element (h1-h5) in a sect5 (header block)'
       $heading.html().should.equal('<span class="label">Section 1. </span>This is the heading');
 
       done();
-    
+
     });
 
   });
@@ -985,7 +984,7 @@ describe('When encountering a heading element (h1-h5) in a div', function() {
       $heading.html().should.equal('<span class="label">Example 1-1. </span>This is the example heading');
 
       done();
-    
+
     });
 
   });
@@ -1020,7 +1019,7 @@ describe('When matching an titleless admonition (note)', function() {
       $element.children("h6").text().should.equal("Note");
 
       done();
-    
+
     });
 
   });
@@ -1054,7 +1053,7 @@ describe('When matching an titleless admonition (tip)', function() {
       $element.children("h6").text().should.equal("Tip");
 
       done();
-    
+
     });
 
   });
@@ -1088,7 +1087,7 @@ describe('When matching an titleless admonition (warning)', function() {
       $element.children("h6").text().should.equal("Warning");
 
       done();
-    
+
     });
 
   });
@@ -1122,7 +1121,7 @@ describe('When matching an titleless admonition (caution)', function() {
       $element.children("h6").text().should.equal("Caution");
 
       done();
-    
+
     });
 
   });
@@ -1156,7 +1155,7 @@ describe('When matching an titleless admonition (important)', function() {
       $element.children("h6").text().should.equal("Important");
 
       done();
-    
+
     });
 
   });
@@ -1191,7 +1190,7 @@ describe('When matching an titled admonition (note)', function() {
       $element.children("h6").text().should.equal("Note Heading");
 
       done();
-    
+
     });
 
   });
@@ -1226,7 +1225,7 @@ describe('When matching a block element with data-type=\'comment\'', function() 
       $doc.root().children().length.should.equal(0);
 
       done();
-    
+
     });
 
   });
@@ -1256,7 +1255,7 @@ describe('When matching a inline element with data-type=\'comment\'', function()
       $doc("p").html().should.equal("This book was written in HTMLBook ");
 
       done();
-    
+
     });
 
   });
