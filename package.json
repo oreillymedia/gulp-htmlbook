@@ -1,6 +1,6 @@
 {
   "name": "gulp-htmlbook",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "Render HTMLBook",
   "main": "index.js",
   "directories": {
@@ -12,28 +12,26 @@
   "author": "fchasen@oreilly.com",
   "license": "MIT",
   "devDependencies": {
-    "gulp-rev-all": "^0.8.13",
-    "mocha": "^1.21.4",
-    "should": "^4.0.4"
+    "mocha": "^2.2.5",
+    "should": "^7.0.2"
   },
   "dependencies": {
-    "bluebird": "^2.3.2",
+    "bluebird": "^2.9.34",
     "cheerio": "^0.19.0",
-    "gulp": "^3.8.10",
+    "gulp": "^3.9.0",
     "gulp-order": "^1.1.1",
-    "gulp-util": "^3.0.1",
-    "hashids": "^1.0.1",
+    "gulp-util": "^3.0.6",
+    "hashids": "^1.0.2",
     "html": "0.0.10",
     "htmlbook": "^0.1.7",
     "htmlparser2": "^3.8.3",
-    "lodash": "^2.4.1",
+    "lodash": "^3.10.0",
     "slug": "^0.9.1",
     "sorted": "^0.1.1",
     "string": "^3.3.0",
-    "through2": "^0.6.1",
+    "through2": "^2.0.0",
     "tinyliquid": "^0.2.24",
-    "underscore": "^1.8.3",
-    "vinyl": "^0.4.3"
+    "vinyl": "^0.5.0"
   },
   "repository": {
     "type": "git",
