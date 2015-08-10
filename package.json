@@ -1,6 +1,6 @@
 {
   "name": "gulp-htmlbook",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Render HTMLBook",
   "main": "index.js",
   "directories": {
@@ -19,6 +19,8 @@
     "bluebird": "^2.9.34",
     "cheerio": "^0.19.0",
     "gulp": "^3.9.0",
+    "gulp-cheerioify": "0.0.1",
+    "gulp-liquify": "0.0.6",
     "gulp-order": "^1.1.1",
     "gulp-util": "^3.0.6",
     "hashids": "^1.0.2",
