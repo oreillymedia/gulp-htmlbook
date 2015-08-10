@@ -4,8 +4,8 @@ var order = require('gulp-order');
 
 var htmlbook = require("./index.js");
 
-var cheerioify = require('./plugins/gulp-cheerioify/index.js');
-var liquify = require("./plugins/gulp-liquid/index.js");
+var cheerioify = require('gulp-cheerioify');
+var liquify = require("gulp-liquify");
 
 var inputPath = "test/alice/";
 var outputPath = inputPath + "compiled/";
