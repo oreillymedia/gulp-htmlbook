@@ -1,6 +1,6 @@
 {
   "name": "gulp-htmlbook",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Render HTMLBook",
   "main": "index.js",
   "directories": {
@@ -28,6 +28,7 @@
     "htmlbook": "^0.1.7",
     "htmlparser2": "^3.8.3",
     "lodash": "^3.10.0",
+    "pygmentize-bundled": "^2.3.0",
     "slug": "^0.9.1",
     "sorted": "^0.1.1",
     "string": "^3.3.0",
