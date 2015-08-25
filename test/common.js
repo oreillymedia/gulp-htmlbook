@@ -32,11 +32,11 @@ describe('When generating a label for a section (chapter)', function() {
   mapper.parse(content, 'test.html');
 
   it('The appropriate numeration value should be generated', function(done) {
-      
+
       var $doc = cheerio.load(content, { xmlMode: false, decodeEntities: false });
       var $element = $doc("section[data-type='chapter']").get(1);
       var mapped = mapper.find($element, 'test.html');
-      
+
       mapped.position.should.equal(2);
 
       done();
@@ -76,18 +76,18 @@ describe('When generating a label for a part div', function() {
   mapper.parse(content, 'test.html');
 
   it('The appropriate numeration value should be generated', function(done) {
-      
+
       var $doc = cheerio.load(content, { xmlMode: false, decodeEntities: false });
       var $element = $doc("div[data-type='part']").get(2);
 
       var mapped = mapper.find($element, 'test.html');
       var position = htmlbook.tools.helpers.romanize(mapped.position);
-      
+
       // Position should be 3
       mapped.position.should.equal(3);
       // Which should romanize to III
       position.should.equal("III");
-      
+
       done();
 
   });
@@ -122,11 +122,11 @@ describe('When generating a label for a section (chapter) in a part', function()
   mapper.parse(content, 'test.html');
 
   it('The appropriate numeration value should be generated (absolute, not relative to part)', function(done) {
-      
+
       var $doc = cheerio.load(content, { xmlMode: false, decodeEntities: false });
       var $element = $doc("div[data-type='part']:nth-child(2)").find("section[data-type='chapter']");
       var mapped = mapper.find($element, 'test.html');
-      
+
       mapped.position.should.equal(3);
 
       done();
@@ -163,7 +163,7 @@ describe('When generating a label for a figure in a chapter-level division', fun
   mapper.parse(content, 'test.html');
 
   it('The appropriate numeration value should be generated', function(done) {
-      
+
       var $doc = cheerio.load(content, { xmlMode: false, decodeEntities: false });
       var $element = $doc("section").eq(0).find("figure").eq(1);
       var mapped = mapper.find($element, 'test.html');
@@ -199,7 +199,7 @@ describe('When generating a label for a figure in a Part', function() {
   mapper.parse(content, 'test.html');
 
   it('The appropriate numeration value should be generated', function(done) {
-      
+
       var $doc = cheerio.load(content, { xmlMode: false, decodeEntities: false });
       var $element = $doc("div[data-type='part']").find("figure").eq(1);
       var mapped = mapper.find($element, 'test.html');
@@ -244,7 +244,7 @@ describe('When generating a label for a figure in a Part (preceding figs)', func
   mapper.parse(content, 'test.html');
 
   it('The appropriate numeration value should be generated', function(done) {
-      
+
       var $doc = cheerio.load(content, { xmlMode: false, decodeEntities: false });
       var $element = $doc("div[data-type='part']").find("figure").eq(1);
       var mapped = mapper.find($element, 'test.html');
@@ -309,7 +309,7 @@ describe('When generating a label for a figure in a Part (preceding figs)', func
   mapper.parse(content, 'test.html');
 
   it('The appropriate numeration value should be generated', function(done) {
-      
+
       var $doc = cheerio.load(content, { xmlMode: false, decodeEntities: false });
       var $element = $doc("section").first().find("table").eq(1);
       var mapped = mapper.find($element, 'test.html');
@@ -375,7 +375,12 @@ describe('When generating a label for a table in a Part', function() {
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -386,13 +391,13 @@ describe('When generating a label for a table in a Part', function() {
       var $doc = cheerio.load(file.contents.toString(), { xmlMode: false, decodeEntities: false });
       var $element = $doc("div[data-type='part']").first().find("table").eq(1).find("caption");
       var $span = $element.find("span");
-      
+
       $span.length.should.be.ok;
 
       $span.text().should.equal("Table I-2. ");
 
       done();
-    
+
     });
 
   });
@@ -464,7 +469,13 @@ describe('When generating a label for a table in a Part (preceding tables)', fun
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
+
   stream.write(file);
   stream.end();
 
@@ -475,13 +486,13 @@ describe('When generating a label for a table in a Part (preceding tables)', fun
       var $doc = cheerio.load(file.contents.toString(), { xmlMode: false, decodeEntities: false });
       var $element = $doc("div[data-type='part']").first().find("table").eq(1).find("caption");
       var $span = $element.find("span");
-      
+
       $span.length.should.be.ok;
 
       $span.text().should.equal("Table I-2. ");
 
       done();
-    
+
     });
 
   });
@@ -509,7 +520,13 @@ describe('When generating a label for an example in a Part', function() {
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
+
   stream.write(file);
   stream.end();
 
@@ -520,13 +537,13 @@ describe('When generating a label for an example in a Part', function() {
       var $doc = cheerio.load(file.contents.toString(), { xmlMode: false, decodeEntities: false });
       var $element = $doc("div[data-type='part']").first().find("div[data-type='example']").eq(1).find("h6");
       var $span = $element.find("span");
-      
+
       $span.length.should.be.ok;
 
       $span.text().should.equal("Example I-2. ");
 
       done();
-    
+
     });
 
   });
@@ -562,7 +579,13 @@ describe('When generating a label for an example in a Part (preceding examples)'
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
+  
   stream.write(file);
   stream.end();
 
@@ -573,13 +596,13 @@ describe('When generating a label for an example in a Part (preceding examples)'
       var $doc = cheerio.load(file.contents.toString(), { xmlMode: false, decodeEntities: false });
       var $element = $doc("div[data-type='part']").first().find("div[data-type='example']").eq(1).find("h6");
       var $span = $element.find("span");
-      
+
       $span.length.should.be.ok;
 
       $span.text().should.equal("Example I-2. ");
 
       done();
-    
+
     });
 
   });
@@ -660,13 +683,13 @@ describe('When generating a label for a table', function() {
       var $doc = cheerio.load(file.contents.toString(), { xmlMode: false, decodeEntities: false });
       var $element = $doc("section").first().find("table").eq(2).find("caption");
       var $span = $element.find("span");
-      
+
       $span.length.should.be.ok;
 
       $span.text().should.equal("Table 1-1. ");
 
       done();
-    
+
     });
 
   });

@@ -502,7 +502,13 @@ describe('When encountering a heading element (h1-h5) in a Part (header block)',
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
+
   stream.write(file);
   stream.end();
 
@@ -539,7 +545,12 @@ describe('When encountering a heading element (h1-h5) in a Part (header block)',
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -573,7 +584,12 @@ describe('When encountering a heading element (h1-h5) in a top level-section (lo
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -610,7 +626,12 @@ describe('When encountering a heading element (h1-h5) in a top level-section (he
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -644,7 +665,12 @@ describe('When encountering a heading element (h1-h5) in a sect2 (loose h2)', fu
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -682,7 +708,12 @@ describe('When encountering a heading element (h1-h5) in a sect2 (header block)'
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -719,7 +750,12 @@ describe('When encountering a heading element (h1-h5) in a sect2 (header block)'
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -754,7 +790,12 @@ describe('When encountering a heading element (h1-h5) in a sect3 (loose h3)', fu
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -791,7 +832,12 @@ describe('When encountering a heading element (h1-h5) in a sect3 (header block)'
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -825,7 +871,12 @@ describe('When encountering a heading element (h1-h5) in a sect4 (loose h4)', fu
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -862,7 +913,12 @@ describe('When encountering a heading element (h1-h5) in a sect4 (header block)'
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -896,7 +952,12 @@ describe('When encountering a heading element (h1-h5) in a sect5 (loose h5)', fu
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -933,7 +994,12 @@ describe('When encountering a heading element (h1-h5) in a sect5 (header block)'
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
@@ -970,7 +1036,12 @@ describe('When encountering a heading element (h1-h5) in a div', function() {
     path: "./test.html"
   });
 
-  var stream = htmlbook.process.labels();
+  var mapper = new htmlbook.tools.mapper();
+  var stream;
+
+  mapper.parse(content, 'test.html');
+
+  stream = htmlbook.process.labels(mapper.map);
   stream.write(file);
   stream.end();
 
