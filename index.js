@@ -26,7 +26,8 @@ module.exports = {
     admonitions: require('./lib/admonitions'),
     comments: require('./lib/comments'),
     xrefs: require('./lib/xref'),
-    highlight: require('./lib/highlight')
+    highlight: require('./lib/highlight'),
+    footnotes: require('./lib/footnotes')
   },
   // Not stream based
   tools: {

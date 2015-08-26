@@ -119,6 +119,33 @@ describe('htmlbook.process.highlight()', function() {
 
   });
 
+  it('should handle &lt;', function(done) {
+    var contents = '<pre data-type="programlisting" data-code-language="haskell">&lt;-</pre><p>This report</p>';
+
+    // create the fake files
+    var chapterOne = new File({
+      contents: new Buffer(contents),
+      path: "./chapterOne.html"
+    });
+
+    var stream = htmlbook.process.highlight();
+
+    stream.on('data', function(file) {
+      // make sure it came out the same way it went in
+      assert(file.isBuffer());
+
+      var $doc = cheerio.load(file.contents.toString(), { xmlMode: false, decodeEntities: false });
+      $heading = $doc("pre[data-type=programlisting]");
+      $heading.html().should.equal('<code class="ow">&lt;-</code>\n');
+
+      done();
+    });
+
+    stream.write(chapterOne);
+    stream.end();
+
+  });
+
   it('should handle many many elements', function(done) {
 
     var contents = '\
