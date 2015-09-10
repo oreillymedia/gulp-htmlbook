@@ -1438,9 +1438,8 @@ describe("When an 'a' element is matched that contains an href pointing to a bog
 
         $ref.attr("id").should.equal("random_bogus_no_text_node_link");
         $ref.text().should.equal('');
-        // Test says this should be changed but not touching data-type=links
-        // $ref.attr("href").should.equal("#random_bogus_text");
-        $ref.attr("href").should.equal("random_bogus_text");
+
+        $ref.attr("href").should.equal("#random_bogus_text");
 
         done();
 
@@ -1473,9 +1472,7 @@ describe("When an 'a' element is matched that contains an href pointing to a bog
         $ref.attr("id").should.equal("random_bogus_text_node_link");
         $ref.text().should.equal('PLACEHOLDER TEXT');
 
-        // Test says this should be changed but not touching data-type=links
-        // $ref.attr("href").should.equal("#random_bogus_text");
-        $ref.attr("href").should.equal("random_bogus_text");
+        $ref.attr("href").should.equal("#random_bogus_text");
 
         done();
 
