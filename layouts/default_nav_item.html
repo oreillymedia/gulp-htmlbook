@@ -1,5 +1,5 @@
 {% for item in navigation %}
-<li>
+<li data-type="{{ item.type }}">
   <a href="{{ item.href }}">{{ item.label }}</a>
   {% if item.children %}
   <ol>

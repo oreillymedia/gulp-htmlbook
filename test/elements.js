@@ -35,7 +35,7 @@ describe('When encountering a section without an id', function() {
 
       id.should.be.ok;
 
-      id.should.equal("id-yBpfL");
+      id.should.equal("id-gn7HD");
 
       done();
 
@@ -104,7 +104,7 @@ describe('When encountering a Part div without an id', function() {
 
       id.should.be.ok;
 
-      id.should.equal("id-yxvfX");
+      id.should.equal("id-gXRsr");
 
       done();
 
@@ -172,7 +172,7 @@ describe('When encountering an aside without an id', function() {
       id = $doc("aside").attr("id");
       id.should.be.ok;
 
-      id.should.equal("id-gd2fN");
+      id.should.equal("id-gwRfr");
 
       done();
 
@@ -241,7 +241,7 @@ describe('When encountering an indexterm without an id', function() {
 
       id.should.be.ok;
 
-      id.should.equal("id-gXwfO");
+      id.should.equal("id-yNwTj");
 
       done();
 
