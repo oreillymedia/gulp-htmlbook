@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-	- "0.12"
+  - "0.12"
 notifications:
-	email: false
-	slack: orm:zJrAAQN9JjRUS2Z8A7hwqOdO
+  email: false
+  slack: orm:zJrAAQN9JjRUS2Z8A7hwqOdO
