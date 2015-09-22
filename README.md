@@ -36,6 +36,8 @@ Adds translated header text to admonition elements (`en` only for now)
 Removes comments
 ### process.xrefs()
 Replaces cross-refrenced link with the correct url and text
+### process.escape()
+Replaces cdata in pre elements, escapes their content
 
 ## tools
 ### tools.helpers()
@@ -78,7 +80,7 @@ Next map the compiled content. This map is used with many other plugins.
 var order = require('gulp-order');
 gulp.task('map', ['compile'], function() {
   return gulp.src(outputPath+"*.html")
-    .pipe(order(['chap_1.html','chap_2.html'])) // Must be ordered 
+    .pipe(order(['chap_1.html','chap_2.html'])) // Must be ordered
     .pipe(htmlbook.generate.map())
     .pipe(gulp.dest(outputPath));
 });
