@@ -3,4 +3,4 @@ node_js:
   - "0.12"
 notifications:
   email: false
-  slack: orm:zJrAAQN9JjRUS2Z8A7hwqOdO
+  slack: "oreilly:KNawvnH5sv8BdZUb7Apj2XAW"
