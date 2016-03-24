@@ -37,7 +37,7 @@ gulp.task('compile', [], function() {
 });
 
 gulp.task('template', ['compile', "navigation", "index"], function() {
-  var titles = require("./"+outputPath+"titles.json"); // Load the map
+  var titles = require("./"+outputPath+"map.json"); // Load the map
 
   return gulp.src(outputPath+"*.html")
     .pipe(htmlbook.layout.ordering(files, titles))
