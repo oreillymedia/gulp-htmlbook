@@ -1,6 +1,6 @@
 {
   "name": "gulp-htmlbook",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "description": "Render HTMLBook",
   "main": "index.js",
   "directories": {
@@ -13,12 +13,12 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^2.2.5",
-    "should": "^7.0.2"
+    "should": "^8.3.0"
   },
   "dependencies": {
-    "async": "^1.4.2",
-    "bluebird": "^2.9.34",
-    "cheerio": "^0.19.0",
+    "async": "^2.0.0-rc.2",
+    "bluebird": "^3.3.4",
+    "cheerio": "^0.20.0",
     "entities": "^1.1.1",
     "gulp": "^3.9.0",
     "gulp-cheerioify": "0.0.1",
@@ -29,14 +29,14 @@
     "html": "0.0.10",
     "htmlbook": "^0.1.9",
     "htmlparser2": "^3.8.3",
-    "lodash": "^3.10.0",
+    "lodash": "^4.6.1",
     "pygmentize-bundled": "^2.3.0",
     "slug": "^0.9.1",
     "sorted": "^0.1.1",
     "string": "^3.3.0",
     "through2": "^2.0.0",
     "tinyliquid": "^0.2.24",
-    "vinyl": "^0.5.0"
+    "vinyl": "^1.1.1"
   },
   "repository": {
     "type": "git",
